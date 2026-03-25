@@ -192,6 +192,11 @@ static bool isShowMenu = false;
             SYBO_Subway_GameplayCameraConfig___ctor,
             _SYBO_Subway_GameplayCameraConfig___ctor);
     
+    HOOK_V2(
+            ENCRYPTOFFSET("0x029A0B08"),
+            SYBO_RunnerCore_Character_CharacterMotorConfig___ctor,
+            _SYBO_RunnerCore_Character_CharacterMotorConfig___ctor);
+    
     LOG(NSSENCRYPT("========= Hooking done ========="));
 }
 
@@ -318,6 +323,7 @@ static bool isShowMenu = false;
             ImGui::TextWrapped("Chọn thể loại muốn mod + kéo thanh điều chỉnh số lượng muốn mod.\n\n");
             
             ImGui::SliderFloat("Cam xa gần", &fieldOfView, 1.0, 2.2);
+            ImGui::SliderFloat("Nhảy cao", &jumpHeight, 1.0, 10.0);
             
             ImGui::TextWrapped("\nFPS: %.2f", ImGui::GetIO().Framerate);
             
