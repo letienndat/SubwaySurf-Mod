@@ -187,15 +187,8 @@ static bool isShowMenu = false;
 - (void)hook {
     LOG(NSSENCRYPT("========= Start hooking ========="));
     
-    HOOK_V2(
-            ENCRYPTOFFSET("0x028A4AE0"),
-            SYBO_Subway_GameplayCameraConfig___ctor,
-            _SYBO_Subway_GameplayCameraConfig___ctor);
-    
-    HOOK_V2(
-            ENCRYPTOFFSET("0x029A0B08"),
-            SYBO_RunnerCore_Character_CharacterMotorConfig___ctor,
-            _SYBO_RunnerCore_Character_CharacterMotorConfig___ctor);
+    HOOK_V2(ENCRYPTOFFSET("0x028A4AE0"), SYBO_Subway_GameplayCameraConfig___ctor, _SYBO_Subway_GameplayCameraConfig___ctor);
+    HOOK_V2(ENCRYPTOFFSET("0x029A0B08"), SYBO_RunnerCore_Character_CharacterMotorConfig___ctor, _SYBO_RunnerCore_Character_CharacterMotorConfig___ctor);
     
     LOG(NSSENCRYPT("========= Hooking done ========="));
 }
@@ -322,8 +315,15 @@ static bool isShowMenu = false;
             ImGui::TextWrapped("Click on the type you want to mod + adjust the quantity you want to mod.\n\n");
             ImGui::TextWrapped("Chọn thể loại muốn mod + kéo thanh điều chỉnh số lượng muốn mod.\n\n");
             
-            ImGui::SliderFloat("Cam xa gần", &fieldOfView, 1.0, 2.2);
-            ImGui::SliderFloat("Nhảy cao", &jumpHeight, 1.0, 10.0);
+            if (ImGui::SliderFloat("Cam xa gần", &fieldOfViewScale, 1.0, 2.5)) {
+                isChangeFieldOfViewScale = true;
+            }
+            if (ImGui::SliderFloat("Nhảy cao", &jumpHeightScale, 1.0, 10.0)) {
+                isChangeJumpHeightScale = true;
+            }
+            if (ImGui::SliderFloat("Chạy nhanh", &initialTargetSpeedScale, 0.1, 5.0)) {
+                isChangeInitialTargetSpeedScale = true;
+            }
             
             ImGui::TextWrapped("\nFPS: %.2f", ImGui::GetIO().Framerate);
             
